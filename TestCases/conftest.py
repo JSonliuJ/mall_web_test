@@ -65,5 +65,5 @@ def login(driver):
     # home = HomePage(driver)
     # home.login('yuze', '1234')
     lg = LoginPage(driver)
-    lg.login('17778063407','123456')
+    lg.login('1a2b','abcd')
     return driver
