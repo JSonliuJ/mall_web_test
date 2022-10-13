@@ -26,7 +26,7 @@ from Common.file_path import *
 day_ts = time.strftime("%Y%m%d%H%M%S",time.localtime())
 # 运行方式2
 pytest.main([
-             # "-m register",
+             # "-m",
              "--html={0}/{1}_report.html".format(reports_path,day_ts),
              "--junitxml={0}/{1}_report.xml".format(reports_path,day_ts)],
              # "--alluredir={0}".format(allure_reports_path)]
