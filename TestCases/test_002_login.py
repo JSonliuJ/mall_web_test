@@ -2,14 +2,18 @@
 # @time:    	2021/10/11 12:57
 # @Author: 		JsonLiu
 # @Email:  		492224300@qq.com
+import os
+import sys
+local_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(local_path)
+
 import pytest
 from TestDatas import login_datas as LD
 from Common.my_log import MyLog
+
+# pip install pyyaml
 logger = MyLog()
 
-
-@pytest.mark.usefixtures("access_web")
-@pytest.mark.usefixtures("refresh_page")
 class TestLogin():
     # TestCase中不能写__init__
     # @classmethod
@@ -24,25 +28,29 @@ class TestLogin():
     # def tearDownClass(cls):
     #     pass
         # cls.driver.quit()
-    # def setUp(self):
-    #     pass
+    def setUp(self):
+        pass
     # def tearDown(self):
     #     '''后置'''
     #     pass
         # 正常用例 -登录成功
 
-    @pytest.mark.login
-    def test_username_login(self,access_web):
-        access_web[1].login(LD.success_data["user"], LD.success_data["password"])
-        expected = LD.success_data['expected']
-        actual = access_web[1].get_user('zhangsan')
+    @pytest.mark.skip
+    @pytest.mark.usefixtures("access_web")
+    @pytest.mark.usefixtures("refresh_page")
+    @pytest.mark.parametrize("data", LD.success_data)
+    def test_username_login(self,access_web,data):
+        access_web[1].login(data["user"], data["password"])
+        expected = data['expected']
+        actual = access_web[1].get_user(expected)
         try:
             assert expected == actual
+            access_web[1].login_out(expected)
         except Exception as e:
             logger.error(e)
             raise e
 
-    @pytest.mark.smoke
+    @pytest.mark.skip
     @pytest.mark.parametrize("data", LD.phone_data)  # 参数化，把LD.phone_data的测试数据交给自定义参数名为data的参数
     def test_username_login_error(self,access_web,data):
         access_web[1].login(data["user"], data["password"])

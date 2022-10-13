@@ -12,7 +12,7 @@ driver = None
 
 
 # 声明是一个fixture
-@pytest.fixture(scope="class")
+@pytest.fixture()
 def access_web():
     global driver
     # 前置操作
@@ -50,8 +50,6 @@ def driver_refresh():
     yield
     # 后置操作
     d.refresh()
-
-
 
 @pytest.fixture()
 def new_mobile():

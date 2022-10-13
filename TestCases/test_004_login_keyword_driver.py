@@ -4,13 +4,13 @@
 # @Email:  		492224300@qq.com
 import os
 import sys
-
-import pytest
-
-from Common.base_page import BasePage
-
 local_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(local_path)
+
+import pytest
+from Common.base_page import BasePage
+
+
 
 from Common.file_path import TestDatas_path
 import os
@@ -21,6 +21,7 @@ with open(yaml_file,'r',encoding='utf-8') as f:
     data = yaml.safe_load(f)
 
 @pytest.mark.usefixtures("driver")
+@pytest.mark.skip
 class TestKeyWord():
     def test_keyword(self,driver):
         # 测试步骤

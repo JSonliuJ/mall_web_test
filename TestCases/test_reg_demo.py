@@ -2,6 +2,11 @@
 # @time:    	2020/10/12 1:43
 # @Author: 		JsonLiu
 # @Email:  		492224300@qq.com
+import os
+import sys
+local_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(local_path)
+
 from Common.mysql_handle import MySQLHandler
 import pytest
 @pytest.mark.skip

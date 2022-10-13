@@ -7,8 +7,10 @@ import sys
 local_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(local_path)
 
+import string
 import time
 import pytest
+import random
 from PageObjects.register_page import RegisterPage
 from TestDatas import register_datas as LD
 
@@ -32,8 +34,10 @@ class TestRegister():
     @pytest.mark.register
     @pytest.mark.parametrize("data", LD.user_data)  # 参数化，把LD.user_data的测试数据交给自定义参数名为data的参数
     def test_user_register(self, driver, new_mobile, data):
-        driver = RegisterPage(driver)
-        driver.load()
-        driver.validate_mobile(new_mobile)
-        driver.fill_account_info(data['user'], data['password'])
+        rp = RegisterPage(driver)
+        rp.load()
+        rp.validate_mobile(new_mobile)
+        ran_str = ''.join([random.choice(string.digits+string.ascii_letters) for i in range(8)])
+        data = rp.str_replace(data,'"random_str"','"%s"' % ran_str)
+        rp.fill_account_info(data['user'], data['password'])
         time.sleep(5)
