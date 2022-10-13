@@ -4,7 +4,7 @@ test_login:
     -
       action: open_url
       params:
-        url: http://mall.lemonban.com:3344
+        url: http://xxxxx
     -
       action: click_element
       params:

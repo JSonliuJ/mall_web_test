@@ -7,11 +7,11 @@
 # 全局 --系统访问地址 --登录链接
 class Config:
     db = dict(
-        host = '47.113.180.81',
+        host = 'xxx',
         port = 3306,
-        user = 'lemon',
-        password = 'lemon123',
-        database = 'yami_shops'
+        user = 'xxx',
+        password = 'xxx',
+        database = 'xxx'
     )
 
-    web_login_url = "http://mall.lemonban.com:3344"
+    web_login_url = "http://xxxx"
