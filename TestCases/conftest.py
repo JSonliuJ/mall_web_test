@@ -35,7 +35,7 @@ def refresh_page():
     # 后置操作
     driver.refresh()
 
-@pytest.fixture(scope="class")
+@pytest.fixture()
 def driver():
     global d
     d = webdriver.Chrome()

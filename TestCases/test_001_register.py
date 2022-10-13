@@ -15,9 +15,9 @@ from PageObjects.register_page import RegisterPage
 from TestDatas import register_datas as LD
 
 
-@pytest.mark.usefixtures("driver")
-@pytest.mark.usefixtures("driver_refresh")
-@pytest.mark.usefixtures("new_mobile")
+# @pytest.mark.usefixtures("driver")
+# @pytest.mark.usefixtures("driver_refresh")
+# @pytest.mark.usefixtures("new_mobile")
 class TestRegister():
     # @classmethod
     # def setUpClass(cls):

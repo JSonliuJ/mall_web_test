@@ -36,8 +36,6 @@ class TestLogin():
         # 正常用例 -登录成功
 
     @pytest.mark.smoke
-    @pytest.mark.usefixtures("access_web")
-    @pytest.mark.usefixtures("refresh_page")
     @pytest.mark.parametrize("data", LD.success_data)
     def test_username_login(self,access_web,data):
         access_web[1].login(data["user"], data["password"])
