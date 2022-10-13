@@ -28,8 +28,8 @@ day_ts = time.strftime("%Y%m%d%H%M%S",time.localtime())
 pytest.main([
              # "-m register",
              "--html={0}/{1}_report.html".format(reports_path,day_ts),
-             "--junitxml={0}/{1}_report.xml".format(reports_path,day_ts),
-             "--alluredir={0}".format(allure_reports_path)]
+             "--junitxml={0}/{1}_report.xml".format(reports_path,day_ts)],
+             # "--alluredir={0}".format(allure_reports_path)]
              # "--reruns","2","--reruns-delay","5"]
 )
 # pytest.main()
