@@ -1,7 +1,13 @@
 # import HTMLTestRunner
-from Common.file_path import *
+import os
+import sys
+local_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(local_path)
 import pytest
 import time
+
+from Common.file_path import *
+
 
 # 实例化套件对象
 # s = unittest.TestSuite()
