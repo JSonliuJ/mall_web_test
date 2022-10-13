@@ -18,3 +18,5 @@ class LoginPageLocator:
     error_msg_locator = (By.XPATH, '//div[@class="error"]')
     # 用户名信息
     user_name = ('xpath', f'//a[text()="#username#"]')
+    # 退出登陆按钮
+    logout_btn = ('xpath', f'//span[@class="link-select"]/a[text()="退出登录"]')
