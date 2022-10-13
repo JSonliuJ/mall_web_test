@@ -25,8 +25,9 @@ class MyLog:
         ch = logging.StreamHandler()
         ch.setLevel('INFO')
         ch.setFormatter(formater)  # 输出格式
-        log_file = os.path.join(logs_path,'{}.log'.format(self.now_date_time))
-        pathlib.Path(log_file).touch()
+        # log_file = os.path.join(logs_path,'{}.log'.format(self.now_date_time))
+        log_file = os.path.join(logs_path,'test.log')
+        # pathlib.Path(log_file).touch()
         fh = logging.FileHandler(log_file, encoding='UTF-8')
         fh.setLevel('ERROR')
         fh.setFormatter(formater)
