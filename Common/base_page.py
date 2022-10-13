@@ -4,24 +4,21 @@
 # @Author:  jsonJie
 # @Email:   810030907@qq.com
 # @File:    base_page.py
+import os
+import sys
+local_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(local_path)
+
 from selenium.webdriver import Chrome
-
 from Common.my_log import MyLog
-import json
-import re
-
 logging = MyLog()
+import time
 import datetime
-
 import allure
 from selenium.webdriver import ActionChains
 from selenium.webdriver.common.keys import Keys
-
-from Common.file_path import screenshots_path
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
-import time
-
 
 # import win32gui
 # import win32con
