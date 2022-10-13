@@ -5,12 +5,13 @@
 # @Email:   810030907@qq.com
 # @File:    my_log.py
 import os
+import pathlib
 from datetime import datetime
 import logging
 from Common.file_path import logs_path
 class MyLog:
     today = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-    now_date_time = datetime.now().strftime('%Y%m%d %H%M%S')
+    now_date_time = datetime.now().strftime('%Y%m%d%H%M%S')
     def mylog(self, msg, level):
         # 1. 定义一个日志收集器 logger
         logger = logging.getLogger('my_logger')
@@ -25,6 +26,7 @@ class MyLog:
         ch.setLevel('INFO')
         ch.setFormatter(formater)  # 输出格式
         log_file = os.path.join(logs_path,'{}.log'.format(self.now_date_time))
+        pathlib.Path(log_file).touch()
         fh = logging.FileHandler(log_file, encoding='UTF-8')
         fh.setLevel('ERROR')
         fh.setFormatter(formater)
