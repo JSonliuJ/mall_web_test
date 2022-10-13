@@ -35,7 +35,7 @@ class TestLogin():
     #     pass
         # 正常用例 -登录成功
 
-    @pytest.mark.skip
+    @pytest.mark.smoke
     @pytest.mark.usefixtures("access_web")
     @pytest.mark.usefixtures("refresh_page")
     @pytest.mark.parametrize("data", LD.success_data)
@@ -50,7 +50,7 @@ class TestLogin():
             logger.error(e)
             raise e
 
-    @pytest.mark.skip
+    @pytest.mark.login
     @pytest.mark.parametrize("data", LD.phone_data)  # 参数化，把LD.phone_data的测试数据交给自定义参数名为data的参数
     def test_username_login_error(self,access_web,data):
         access_web[1].login(data["user"], data["password"])

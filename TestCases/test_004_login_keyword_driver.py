@@ -21,7 +21,7 @@ with open(yaml_file,'r',encoding='utf-8') as f:
     data = yaml.safe_load(f)
 
 @pytest.mark.usefixtures("driver")
-@pytest.mark.skip
+@pytest.mark.key_word_driver
 class TestKeyWord():
     def test_keyword(self,driver):
         # 测试步骤
