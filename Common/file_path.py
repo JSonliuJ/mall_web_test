@@ -23,7 +23,7 @@ allure_reports_path = os.path.join(base_path,r'OutPuts\allure_reports')
 screenshots_path = os.path.join(base_path, r'OutPuts\screenshots')
 
 # 日志路径
-logs_path = os.path.join(base_path, r'OutPuts\logs')
+logs_path = os.path.join(base_path, r'OutPuts','logs')
 
 # config_dir = os.path.join(base_path,'Config')
 
