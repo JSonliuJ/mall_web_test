@@ -33,6 +33,32 @@ pip install -r requirement.txt
 10. 个人中心查询：订单列表、订单状态、订单管理、账号管理、客户服务、中心首页（订单状态、订单列表）
 11. 我的订单：订单查询、订单管理（支付、订单详情、添加收藏）
 ### 04 jenkins持续集成和报告输出
+
+#### 1. 构建工程
+
+![1665646602106](C:\Users\jieliu666\AppData\Roaming\Typora\typora-user-images\1665646602106.png)
+
+![1665646628630](C:\Users\jieliu666\AppData\Roaming\Typora\typora-user-images\1665646628630.png)
+
+![1665646665768](C:\Users\jieliu666\AppData\Roaming\Typora\typora-user-images\1665646665768.png)
+
+![1665646708252](C:\Users\jieliu666\AppData\Roaming\Typora\typora-user-images\1665646708252.png)
+
+![1665646749558](C:\Users\jieliu666\AppData\Roaming\Typora\typora-user-images\1665646749558.png)
+
+#### 2. 启动任务
+
+![1665647151700](C:\Users\jieliu666\AppData\Roaming\Typora\typora-user-images\1665647151700.png)
+
+#### 3. 报告查看
+
+![1665647405947](C:\Users\jieliu666\AppData\Roaming\Typora\typora-user-images\1665647405947.png)
+
+![1665647435119](C:\Users\jieliu666\AppData\Roaming\Typora\typora-user-images\1665647435119.png)
+
+![1665647532668](C:\Users\jieliu666\AppData\Roaming\Typora\typora-user-images\1665647532668.png)
+
 ### 05 后续持续优化
+
 1. 步骤和关键字驱动
 2. 
