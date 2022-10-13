@@ -13,7 +13,7 @@ from Common.my_log import MyLog
 
 # pip install pyyaml
 logger = MyLog()
-
+@pytest.mark.run(order=1)
 class TestLogin():
     # TestCase中不能写__init__
     # @classmethod
