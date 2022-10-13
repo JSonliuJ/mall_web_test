@@ -7,6 +7,8 @@
 from selenium.webdriver import Chrome
 
 from Common.my_log import MyLog
+import json
+import re
 
 logging = MyLog()
 import datetime
@@ -132,7 +134,7 @@ class BasePage:
     #             logging.info('{0}输入内容为：{1}'.format(doc, content))
     #             action.send_keys(content).perform()
     #         else:
-    #             el = self.driver.find_element(locator)
+    #             el = self.find_element(locator)
     #             print(el)
     #             logging.info('{0}元素：{1}，输入内容为：{2}'.format(doc, locator, content))
     #             action = ActionChains(self.driver)
@@ -169,7 +171,7 @@ class BasePage:
             raise
 
     def assert_text_equal(self, locator, expected):
-        el = self.driver.find_element(locator)
+        el = self.find_element(locator)
         assert el.text == expected
 
     # 8. alert处理
@@ -308,11 +310,16 @@ class BasePage:
         mouse.context_click(ele).perform()
 
     # 元素鼠标操作：移动到该元素上--测试OK
-    def move_to_element_by_mouse(self, locator):
-        ele = self.find_element(locator)
-        mouse = ActionChains(self.driver)
-        logging.info('将鼠标移动到{}元素上'.format(locator))
-        mouse.move_to_element(ele).perform()
+    def move_to_element_by_mouse(self, locator,doc=""):
+        try:
+            ele = self.find_element(locator,doc)
+            mouse = ActionChains(self.driver)
+            logging.info('将鼠标移动到{}元素上'.format(locator))
+            mouse.move_to_element(ele).perform()
+        except:
+            logging.error('{}鼠标悬浮操作失败！'.format(doc))
+            self.save_screenshot(doc)
+            raise
 
     # 长按元素
     def long_press_element(self, locator, seconds):
@@ -329,18 +336,22 @@ class BasePage:
 
     def double_click(self, locator):
         """双击"""
-        el = self.driver.find_element(*locator)
+        el = self.find_element(*locator)
         mouse = ActionChains(self.driver)
         logging.info('双击{}元素'.format(locator))
         mouse.double_click(el).perform()
 
-    def move_to(self, locator, xoffset=0, yoffset=0):
+    def move_to(self, locator, doc="",xoffset=0, yoffset=0):
         """悬停"""
-        el = self.driver.find_element(locator)
-        mouse = ActionChains(self.driver)
-        logging.info('鼠标悬停到{}元素上'.format(locator))
-        mouse.move_to_element_with_offset(el, xoffset=xoffset, yoffset=yoffset)
-
+        try:
+            el = self.find_element(locator,doc)
+            mouse = ActionChains(self.driver)
+            logging.info('鼠标悬停到{}元素上'.format(locator))
+            mouse.move_to_element_with_offset(el, xoffset=xoffset, yoffset=yoffset)
+        except:
+            logging.error('{}鼠标悬停操作失败！'.format(doc))
+            self.save_screenshot(doc)
+            raise
     def move_by(self, xoffset, yoffset):
         """移动多少个像素点"""
         mouse = ActionChains(self.driver)
