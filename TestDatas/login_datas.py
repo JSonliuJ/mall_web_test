@@ -6,7 +6,7 @@
 # @File:    login_datas.py
 # 正常用例 -登录成功
 success_data = [{"user":"17778063407","password":"123456","expected":"zhangsan"},
-                {"user":"1a2b","password":"1234","expected":"1a2b"}
+                {"user":"1a2b","password":"abcd","expected":"1a2b"}
                 ]
 
 # 异常用例 - 错误的手机号格式(大于11位、小于11位、为空、不在号码段)

@@ -4,7 +4,7 @@
 # @Email:  		492224300@qq.com
 
 user_data = [
-    {"user": "123456abcd", "password": "123456abcd"},
+    {"user": "random_str", "password": "random_str"},
     # {"user": "xxA", "password": "123456abc"},  # 用户名长度为3
     # {"user": "xxA$", "password": "123456abc"},  # 用户名包含特殊字符
     # {"user": "abc123456789ABCDF", "password": "123456abc"},  # 用户名长度大于16位

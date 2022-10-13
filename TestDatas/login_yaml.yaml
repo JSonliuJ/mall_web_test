@@ -1,25 +1,55 @@
-test_cases: login
+test_login:
   title: 登录测试用例
   steps:
     -
-      action: goto
+      action: open_url
       params:
-        url: http://mall.lemonban.com:3344/
+        url: http://mall.lemonban.com:3344
     -
       action: click_element
       params:
         locator: ['xpath', '//a[text()="登录"]']
+    -
+      action: wait
+      params:
+        seconds: 10
+    - action: input_text
+      params:
+        content: 1a2b
+        locator: ['xpath', '//input[@placeholder="请输入手机号/用户名"]']
+    - action: input_text
+      params:
+        content: abcd
+        locator: ['xpath', '//input[@placeholder="请输入密码"]']
+    - action: click_element
+      params:
+        locator: ['xpath', '//a[@class="login-button"]']
+    - action: assert_text_equal
+      params:
+        locator: ['xpath','//a[text()="1a2b"]']
+        expected: 1a2b
+test_register:
+  title: 注册测试用例
+  steps:
+    -
+      action: load
+      params:
+        url: "${url}/register"
+    -
+      action: click_element
+      params:
+        locator: ['xpath', '//a[text()="注册"]']
     -
       action: sleep
       params:
         second: 10
     - action: fill
       params:
-        words: 1a2b
+        words: '${words}'
         locator: ['xpath', '//input[@placeholder="请输入手机号/用户名"]']
     - action: fill
       params:
-        words: abcd
+        words: '${words}'
         locator: ['xpath', '//input[@placeholder="请输入密码"]']
     - action: click_element
       params:
