@@ -5,7 +5,11 @@
 # @Email:   810030907@qq.com
 # @File:    my_log.py
 import os
-import pathlib
+import os
+import sys
+local_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(local_path)
+
 from datetime import datetime
 import logging
 from Common.file_path import logs_path
