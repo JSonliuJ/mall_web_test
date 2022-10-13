@@ -9,7 +9,10 @@ from PageObjects.login_page import LoginPage
 import pytest
 import faker
 driver = None
-
+'''
+共享机制，将前后置（如实例化driver、打开浏览器、刷新浏览器、关闭浏览器）放到conftest.py文件，
+# 不需要导入文件，在对应的测试类、测试方法定义中传入即可
+'''
 
 # 声明是一个fixture
 @pytest.fixture()
