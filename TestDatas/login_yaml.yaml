@@ -1,0 +1,26 @@
+test_cases: login
+  title: 登录测试用例
+  steps:
+    -
+      action: goto
+      params:
+        url: http://mall.lemonban.com:3344/
+    -
+      action: click_element
+      params:
+        locator: ['xpath', '//a[text()="登录"]']
+    -
+      action: sleep
+      params:
+        second: 10
+    - action: fill
+      params:
+        words: 1a2b
+        locator: ['xpath', '//input[@placeholder="请输入手机号/用户名"]']
+    - action: fill
+      params:
+        words: abcd
+        locator: ['xpath', '//input[@placeholder="请输入密码"]']
+    - action: click_element
+      params:
+        locator: ['xpath', '//a[@class="login-button"]']

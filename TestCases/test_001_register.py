@@ -2,6 +2,11 @@
 # @time:    	2022/10/11 23:00
 # @Author: 		JsonLiu
 # @Email:  		492224300@qq.com
+import os
+import sys
+local_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
+sys.path.append(local_path)
+
 import time
 import pytest
 from PageObjects.register_page import RegisterPage

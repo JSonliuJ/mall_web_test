@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="9" tests="12" time="47.232" timestamp="2022-10-13T02:28:15.424080" hostname="V_LJJLLIU-PC3"><testcase classname="TestCases.test_001_register.TestRegister" name="test_user_register[data0]" time="18.851"><failure message="pymysql.err.OperationalError: (1045, &quot;Access denied for user 'jieliu666'@'localhost' (using password: NO)&quot;)">self = &lt;TestCases.test_001_register.TestRegister object at 0x0000025134B1FDC0&gt;
+driver = &lt;PageObjects.register_page.RegisterPage object at 0x00000251341A0DC0&gt;
+new_mobile = '13707423947'
+data = {'password': '123456abcd', 'user': '123456abcd'}
+
+    @pytest.mark.register
+    @pytest.mark.parametrize("data", LD.user_data)  # 参数化，把LD.user_data的测试数据交给自定义参数名为data的参数
+    def test_user_register(self, driver, new_mobile, data):
+        driver = RegisterPage(driver)
+        driver.load()
+&gt;       driver.validate_mobile(new_mobile)
+
+TestCases\test_001_register.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+PageObjects\register_page.py:31: in validate_mobile
+    db = MySQLHandler(**cf.db)
+Common\mysql_handle.py:17: in __init__
+    self.conn = pymysql.connect(host=host,
+C:\.virtualenv\web_test\lib\site-packages\pymysql\connections.py:353: in __init__
+    self.connect()
+C:\.virtualenv\web_test\lib\site-packages\pymysql\connections.py:633: in connect
+    self._request_authentication()
+C:\.virtualenv\web_test\lib\site-packages\pymysql\connections.py:921: in _request_authentication
+    auth_packet = self._process_auth(plugin_name, auth_packet)
+C:\.virtualenv\web_test\lib\site-packages\pymysql\connections.py:1018: in _process_auth
+    pkt = self._read_packet()
+C:\.virtualenv\web_test\lib\site-packages\pymysql\connections.py:725: in _read_packet
+    packet.raise_for_error()
+C:\.virtualenv\web_test\lib\site-packages\pymysql\protocol.py:221: in raise_for_error
+    err.raise_mysql_exception(self._data)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+data = b"\xff\x15\x04#28000Access denied for user 'jieliu666'@'localhost' (using password: NO)"
+
+    def raise_mysql_exception(data):
+        errno = struct.unpack("&lt;h", data[1:3])[0]
+        errval = data[9:].decode("utf-8", "replace")
+        errorclass = error_map.get(errno)
+        if errorclass is None:
+            errorclass = InternalError if errno &lt; 1000 else OperationalError
+&gt;       raise errorclass(errno, errval)
+E       pymysql.err.OperationalError: (1045, "Access denied for user 'jieliu666'@'localhost' (using password: NO)")
+
+C:\.virtualenv\web_test\lib\site-packages\pymysql\err.py:143: OperationalError</failure></testcase><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login" time="1.353"><failure message="TypeError: list indices must be integers or slices, not str">self = &lt;TestCases.test_002_login.TestLogin object at 0x0000025134B3B040&gt;
+access_web = (&lt;selenium.webdriver.chrome.webdriver.WebDriver (session="1ada3b24b0383cced8605f3950d4f779")&gt;, &lt;PageObjects.login_page.LoginPage object at 0x0000025134A2AE80&gt;)
+
+    @pytest.mark.login
+    def test_username_login(self,access_web):
+&gt;       access_web[1].login(LD.success_data["user"], LD.success_data["password"])
+E       TypeError: list indices must be integers or slices, not str
+
+TestCases\test_002_login.py:43: TypeError</failure></testcase><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login_error[data0]" time="0.000"><skipped type="pytest.skip" message="unconditional skip">C:\Users\jieliu666\python3_code\sublime_text03\14SoftwareTest\python_project\webTest\python_webTest\mall_web_test\TestCases\test_002_login.py:53: unconditional skip</skipped></testcase><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login_error[data1]" time="0.000"><skipped type="pytest.skip" message="unconditional skip">C:\Users\jieliu666\python3_code\sublime_text03\14SoftwareTest\python_project\webTest\python_webTest\mall_web_test\TestCases\test_002_login.py:53: unconditional skip</skipped></testcase><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login_error[data2]" time="0.000"><skipped type="pytest.skip" message="unconditional skip">C:\Users\jieliu666\python3_code\sublime_text03\14SoftwareTest\python_project\webTest\python_webTest\mall_web_test\TestCases\test_002_login.py:53: unconditional skip</skipped></testcase><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login_error[data3]" time="0.000"><skipped type="pytest.skip" message="unconditional skip">C:\Users\jieliu666\python3_code\sublime_text03\14SoftwareTest\python_project\webTest\python_webTest\mall_web_test\TestCases\test_002_login.py:53: unconditional skip</skipped></testcase><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login_error[data4]" time="0.000"><skipped type="pytest.skip" message="unconditional skip">C:\Users\jieliu666\python3_code\sublime_text03\14SoftwareTest\python_project\webTest\python_webTest\mall_web_test\TestCases\test_002_login.py:53: unconditional skip</skipped></testcase><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login_error[data5]" time="0.000"><skipped type="pytest.skip" message="unconditional skip">C:\Users\jieliu666\python3_code\sublime_text03\14SoftwareTest\python_project\webTest\python_webTest\mall_web_test\TestCases\test_002_login.py:53: unconditional skip</skipped></testcase><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login_error[data6]" time="0.000"><skipped type="pytest.skip" message="unconditional skip">C:\Users\jieliu666\python3_code\sublime_text03\14SoftwareTest\python_project\webTest\python_webTest\mall_web_test\TestCases\test_002_login.py:53: unconditional skip</skipped></testcase><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login_error[data7]" time="2.147"><skipped type="pytest.skip" message="unconditional skip">C:\Users\jieliu666\python3_code\sublime_text03\14SoftwareTest\python_project\webTest\python_webTest\mall_web_test\TestCases\test_002_login.py:53: unconditional skip</skipped></testcase><testcase classname="TestCases.test_004_login_keyword_driver.TestKeyWord" name="test_keyword" time="22.238" /><testcase classname="TestCases.test_reg_demo" name="test_demo" time="0.002"><skipped type="pytest.skip" message="unconditional skip">C:\Users\jieliu666\python3_code\sublime_text03\14SoftwareTest\python_project\webTest\python_webTest\webTest_mall\TestCases\test_reg_demo.py:7: unconditional skip</skipped></testcase></testsuite></testsuites>
