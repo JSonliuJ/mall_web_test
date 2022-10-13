@@ -1,5 +1,4 @@
-## webTest(关键字+数据驱动)
-
+## webTest(关键字+数据驱动) 
 ### 01 环境安装
 pip install -r requirement.txt
 ### 02 框架模块
@@ -13,11 +12,21 @@ pip install -r requirement.txt
 - PageObjects：对每个功能页面进行二次封装
 - TestCases：测试用例
     - conftest：全局资源共享配置文件：
+    - setup:每个用例执行前执行一次
+    - teardown：每个用例执行后执行一次
+    - SetupClass：每个测试类执行前执行一遍
+    - TearDown：每个测试类执行前执行一次
 - TestDatas：测试数据
     - common_datas：主要存放url、数据库连接信息
     - logins_datas等：每个页面用到的信息，如用户名、密码、手机号、预期结果等
 - conftest：全局资源共享文件
-- pytest.ini：定义执行的用例路径、用例匹配模式、测试用例标签注册、定义allure报告输出路径、失败执行次数设置等功能
+    - 定义前后置：实例化driver、打开浏览器(并最大化)、关闭浏览器、刷新浏览器、打开浏览器并登陆等方法
+    - 调用夹具：
+      - 方式1：# @pytest.mark.usefixtures("夹具名")
+      - 方式2：test_xxxx(夹具名)
+- pytest.ini：
+    - 定义执行的用例路径、用例匹配模式、测试用例标签注册、定义allure报告输出路径、失败执行次数设置等功能
+    - 打标签：需要注册标签并在需要运行的行数上打上对应标签名
 - requirement.txt：项目环境依赖
 - run.py:项目执行入口文件
 ### 03 项目主要功能模块
@@ -61,4 +70,4 @@ pip install -r requirement.txt
 ### 05 后续持续优化
 
 1. 步骤和关键字驱动
-2. 
+2. la
