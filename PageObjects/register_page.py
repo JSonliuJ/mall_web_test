@@ -2,6 +2,8 @@
 # @time:    	2020/10/11 22:19
 # @Author: 		JsonLiu
 # @Email:  		492224300@qq.com
+import json
+import re
 import time
 
 import allure
@@ -60,3 +62,10 @@ class RegisterPage(BasePage):
 
     def finish_register(self):
         pass
+
+    def str_replace(self, body, pattern, new_str):
+        s = json.dumps(body)
+        pattern = re.compile(pattern=pattern)
+        body_1 = pattern.sub(new_str, s)
+        new_body = json.loads(body_1)
+        return new_body
