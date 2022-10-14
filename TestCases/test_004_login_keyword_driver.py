@@ -2,35 +2,55 @@
 # @time:    	2021/10/12 15:48
 # @Author: 		JsonLiu
 # @Email:  		492224300@qq.com
+import inspect
+import json
 import os
 import sys
+
 local_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(local_path)
 
+import yaml
 import pytest
 from Common.base_page import BasePage
-
-
-
 from Common.file_path import TestDatas_path
-import os
-import yaml
-yaml_file= os.path.join(TestDatas_path,'login_yaml.yaml')
-print(yaml_file)
-with open(yaml_file,'r',encoding='utf-8') as f:
-    data = yaml.safe_load(f)
 
-@pytest.mark.usefixtures("driver")
+login_file = os.path.join(TestDatas_path, 'login_yaml.yaml')
+params_file = os.path.join(TestDatas_path, 'test_params.yaml')
+
+with open(login_file, 'r', encoding='utf-8') as f1:
+    data = yaml.safe_load(f1)
+f1.close()
+with open(params_file, 'r', encoding='utf-8') as f2:
+    params = yaml.safe_load(f2)
+f2.close()
+
+
+
 @pytest.mark.key_word_driver
-class TestKeyWord():
-    def test_keyword(self,driver):
+class TestLoginKeyWordDriver():
+
+    @pytest.mark.parametrize(['url', 'user', 'pwd', 'expected'], params['test_login_successful'])
+    def test_login_successful(self, driver, url, user, pwd, expected):
         # 测试步骤
         page = BasePage(driver)
         self.driver = driver
-        steps = data['test_login']['steps']
-        print(steps)
-        for step in steps:
-            method_name = step['action']
-            params = step['params']
-            method = getattr(page, method_name)
-            method(**params)
+        page._test_params['url'] = url
+        page._test_params['user'] = user
+        page._test_params['pwd'] = pwd
+        page._test_params['expected'] = expected
+        page.steps(data, page)
+
+    @pytest.mark.parametrize(['url', 'user', 'pwd', 'expected'], params['test_login_error'])
+    def test_login_error(self, driver, url, user, pwd, expected):
+        # 测试步骤
+        page = BasePage(driver)
+        self.driver = driver
+        page._test_params['url'] = url
+        page._test_params['user'] = user
+        page._test_params['pwd'] = pwd
+        page._test_params['expected'] = expected
+        page.steps(data, page)
+
+# if __name__ == '__main__':
+#     print(params)
