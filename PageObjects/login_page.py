@@ -24,6 +24,7 @@ class LoginPage(BasePage):
         doc = "登录页面_登录信息"
         # 输入网址
         self.open_url(cf.web_login_url)
+        print(cf.web_login_url)
         # 点击登录按钮
         self.click_element(iloc.login_btn, doc)
         # 输入用户名
