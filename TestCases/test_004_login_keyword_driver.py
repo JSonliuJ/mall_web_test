@@ -14,6 +14,7 @@ import yaml
 import pytest
 from Common.base_page import BasePage
 from Common.file_path import TestDatas_path
+from TestDatas.Common_datas import Config as cf
 
 login_file = os.path.join(TestDatas_path, 'login_yaml.yaml')
 params_file = os.path.join(TestDatas_path, 'test_params.yaml')
@@ -26,27 +27,26 @@ with open(params_file, 'r', encoding='utf-8') as f2:
 f2.close()
 
 
-
 @pytest.mark.key_word_driver
 class TestLoginKeyWordDriver():
 
-    @pytest.mark.parametrize(['url', 'user', 'pwd', 'expected'], params['test_login_successful'])
-    def test_login_successful(self, driver, url, user, pwd, expected):
+    @pytest.mark.parametrize(['user', 'pwd', 'expected'], params['test_login_successful'])
+    def test_login_successful(self, driver, user, pwd, expected):
         # 测试步骤
         page = BasePage(driver)
         self.driver = driver
-        page._test_params['url'] = url
+        page._test_params['url'] = cf.web_login_url
         page._test_params['user'] = user
         page._test_params['pwd'] = pwd
         page._test_params['expected'] = expected
-        page.steps(data, page)
+        page.steps(data,page)
 
-    @pytest.mark.parametrize(['url', 'user', 'pwd', 'expected'], params['test_login_error'])
-    def test_login_error(self, driver, url, user, pwd, expected):
+    @pytest.mark.parametrize(['user', 'pwd', 'expected'], params['test_login_error'])
+    def test_login_error(self, driver, user, pwd, expected):
         # 测试步骤
         page = BasePage(driver)
         self.driver = driver
-        page._test_params['url'] = url
+        page._test_params['url'] = cf.web_login_url
         page._test_params['user'] = user
         page._test_params['pwd'] = pwd
         page._test_params['expected'] = expected
