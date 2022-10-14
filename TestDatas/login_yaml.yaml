@@ -1,10 +1,10 @@
-test_login:
-  title: 登录测试用例
+test_login_successful:
+  title: 登录成功
   steps:
     -
       action: open_url
       params:
-        url: http://xxxxx
+        url: '${url}'
     -
       action: click_element
       params:
@@ -13,44 +13,56 @@ test_login:
       action: wait
       params:
         seconds: 10
-    - action: input_text
-      params:
-        content: 1a2b
-        locator: ['xpath', '//input[@placeholder="请输入手机号/用户名"]']
-    - action: input_text
-      params:
-        content: abcd
-        locator: ['xpath', '//input[@placeholder="请输入密码"]']
-    - action: click_element
-      params:
-        locator: ['xpath', '//a[@class="login-button"]']
-    - action: assert_text_equal
-      params:
-        locator: ['xpath','//a[text()="1a2b"]']
-        expected: 1a2b
-test_register:
-  title: 注册测试用例
-  steps:
     -
-      action: load
+      action: input_text
       params:
-        url: "${url}/register"
+        content: '${user}'
+        locator: ['xpath', '//input[@placeholder="请输入手机号/用户名"]']
+    -
+      action: input_text
+      params:
+        content: '${pwd}'
+        locator: ['xpath', '//input[@placeholder="请输入密码"]']
     -
       action: click_element
       params:
-        locator: ['xpath', '//a[text()="注册"]']
+        locator: ['xpath', '//a[@class="login-button"]']
     -
-      action: sleep
+      action: assert_text_equal
       params:
-        second: 10
-    - action: fill
+        locator: ['xpath','//a[text()="${expected}"]']
+        expected: '${expected}'
+test_login_error:
+  title: 登录失败
+  steps:
+    -
+      action: open_url
       params:
-        words: '${words}'
+        url: '${url}'
+    -
+      action: click_element
+      params:
+        locator: ['xpath', '//a[text()="登录"]']
+    -
+      action: wait
+      params:
+        seconds: 10
+    -
+      action: input_text
+      params:
+        content: '${user}'
         locator: ['xpath', '//input[@placeholder="请输入手机号/用户名"]']
-    - action: fill
+    -
+      action: input_text
       params:
-        words: '${words}'
+        content: '${pwd}'
         locator: ['xpath', '//input[@placeholder="请输入密码"]']
-    - action: click_element
+    -
+      action: click_element
       params:
         locator: ['xpath', '//a[@class="login-button"]']
+    -
+      action: assert_text_equal
+      params:
+        locator: ['xpath','//div[@class="error"]']
+        expected: '${expected}'
