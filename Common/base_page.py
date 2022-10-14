@@ -188,12 +188,15 @@ class BasePage:
             self.save_screenshot(doc)
             raise
 
-    def assert_text_equal(self, locator, expected):
+    def assert_text_equal(self, locator, expected, assert_type="equal"):
         el = self.find_element(locator)
         try:
-            assert el.text == expected
+            if assert_type != 'equal':
+                assert expected in el.text
+            else:
+                assert el.text == expected
         except:
-            logging.error("{}实际获取的文本为{} \n".format(locator,el.text))
+            logging.error("{}实际获取的文本为{} \n".format(locator, el.text))
 
     # 8. alert处理
     def switch_to_alert(self, timeout=30, poll_frequency=0.5, action='accept', doc=""):
@@ -231,11 +234,11 @@ class BasePage:
         allure.attach(f, name=doc, attachment_type=allure.attachment_type.PNG)
 
     # 10. 滚动条处理
-    def scrollbal_handle(self, url, mode='foot', doc=""):
+    def scrollbal_handle(self, mode='foot', doc=""):
         global js
         logging.info('{}进行滚动条操作'.format(doc))
         try:
-            self.driver.get(url)
+            # self.driver.get(url)
             if mode == 'top':
                 # 滚动到顶部
                 js = "window.scrollTo(0,0)"
@@ -448,6 +451,7 @@ class BasePage:
 
     # 18.浏览器操作
     def open_url(self, url):
+        print("url",url)
         self.driver.get(url)
         logging.info('打开URL地址%s;' % url)
 
