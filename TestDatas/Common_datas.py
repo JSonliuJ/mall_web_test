@@ -14,4 +14,4 @@ class Config:
         database = 'xxx'
     )
 
-    web_login_url = "http://xxxx"
+    web_login_url = "http://mall.lemonban.com:3344"

@@ -1,0 +1,34 @@
+test_confirm_order_successful:
+  title: 下订单成功
+  steps:
+    -
+      action: input_text # 输入商品名称
+      params:
+        content: '${goods_name}'
+        locator: ['xpath', '//div[@class="home-search"]//input[@placeholder="请输入商品名称"]']
+    -
+      action: click_element # 点击搜索按钮
+      params:
+        locator: ['xpath', '//div[@class="home-search"]//input[@value="搜索"]']
+    -
+      action: click_element # 点击商品图片
+      params:
+        locator: ['xpath', '//div[@class="goods-img"]/img[@src="${img_url}"]']
+    -
+      action: click_element # 点击立即购买
+      params:
+        locator: ['xpath', '//div[@class="btns"]/a[@class="buy-now"]']
+    -
+      action: scrollbal_handle
+      params:
+        mode: foot
+    -
+      action: click_element # 点击提交订单
+      params:
+        locator: ['xpath','//div[@class="submit-bottom"]//a[text()="提交订单"]']
+    -
+      action:  assert_text_equal # 断言脚本
+      params:
+        locator: ['xpath','//div[contains(text(),"订单提交成功")]']
+        expected: '${expected}'
+        assert_type: 'in'
