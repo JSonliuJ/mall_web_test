@@ -4,7 +4,7 @@ test_login_successful:
   - 'abcd'
   - '1a2b'
  -
-  - '17778063407'
+  - '17778063xxxx'
   - '123456'
   - 'zhangsan'
 test_login_error:
@@ -51,5 +51,5 @@ test_login_error:
 test_confirm_order_successful:
  -
   - 'py1660703573699'
-  - 'http://mall.lemonban.com:8108/2022/08/b20d9608664c46e78196ab1b31c6d5a6.png'
+  - 'http://xxxxxx:8108/2022/08/b20d9608664c46e78196ab1b31c6d5a6.png'
   - '订单提交成功'

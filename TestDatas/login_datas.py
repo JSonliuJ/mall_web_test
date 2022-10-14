@@ -5,7 +5,7 @@
 # @Email:   810030907@qq.com
 # @File:    login_datas.py
 # 正常用例 -登录成功
-success_data = [{"user":"17778063407","password":"123456","expected":"zhangsan"},
+success_data = [{"user":"17778063xxx","password":"123456","expected":"zhangsan"},
                 {"user":"1a2b","password":"abcd","expected":"1a2b"}
                 ]
 
