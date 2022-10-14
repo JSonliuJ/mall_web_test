@@ -1,0 +1,353 @@
+<?xml version="1.0" encoding="utf-8"?><testsuites><testsuite name="pytest" errors="0" failures="2" skipped="1" tests="25" time="434.658" timestamp="2022-10-15T00:38:31.800960" hostname="V_LJJLLIU-PC3"><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login[data0]" time="17.456" /><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login[data1]" time="15.213" /><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login_error[data0]" time="10.019" /><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login_error[data1]" time="10.576" /><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login_error[data2]" time="10.223" /><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login_error[data3]" time="10.227" /><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login_error[data4]" time="10.558" /><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login_error[data5]" time="11.279" /><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login_error[data6]" time="9.054" /><testcase classname="TestCases.test_002_login.TestLogin" name="test_username_login_error[data7]" time="10.011" /><testcase classname="TestCases.test_001_register.TestRegister" name="test_user_register[data0]" time="23.347"><failure message="pymysql.err.OperationalError: (2003, &quot;Can't connect to MySQL server on 'xxx' ([Errno 11001] getaddrinfo failed)&quot;)">self = &lt;pymysql.connections.Connection object at 0x0000020D824A55E0&gt;
+sock = None
+
+    def connect(self, sock=None):
+        self._closed = False
+        try:
+            if sock is None:
+                if self.unix_socket:
+                    sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+                    sock.settimeout(self.connect_timeout)
+                    sock.connect(self.unix_socket)
+                    self.host_info = "Localhost via UNIX socket"
+                    self._secure = True
+                    if DEBUG:
+                        print("connected using unix_socket")
+                else:
+                    kwargs = {}
+                    if self.bind_address is not None:
+                        kwargs["source_address"] = (self.bind_address, 0)
+                    while True:
+                        try:
+&gt;                           sock = socket.create_connection(
+                                (self.host, self.port), self.connect_timeout, **kwargs
+                            )
+
+C:\.virtualenv\web_test\lib\site-packages\pymysql\connections.py:613: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+address = ('xxx', 3306), timeout = 10, source_address = None
+
+    def create_connection(address, timeout=_GLOBAL_DEFAULT_TIMEOUT,
+                          source_address=None):
+        """Connect to *address* and return the socket object.
+    
+        Convenience function.  Connect to *address* (a 2-tuple ``(host,
+        port)``) and return the socket object.  Passing the optional
+        *timeout* parameter will set the timeout on the socket instance
+        before attempting to connect.  If no *timeout* is supplied, the
+        global default timeout setting returned by :func:`getdefaulttimeout`
+        is used.  If *source_address* is set it must be a tuple of (host, port)
+        for the socket to bind as a source address before making the connection.
+        A host of '' or port 0 tells the OS to use the default.
+        """
+    
+        host, port = address
+        err = None
+&gt;       for res in getaddrinfo(host, port, 0, SOCK_STREAM):
+
+c:\users\jieliu666\appdata\local\programs\python\python38\lib\socket.py:787: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+host = 'xxx', port = 3306, family = 0, type = &lt;SocketKind.SOCK_STREAM: 1&gt;
+proto = 0, flags = 0
+
+    def getaddrinfo(host, port, family=0, type=0, proto=0, flags=0):
+        """Resolve host and port into list of address info entries.
+    
+        Translate the host/port argument into a sequence of 5-tuples that contain
+        all the necessary arguments for creating a socket connected to that service.
+        host is a domain name, a string representation of an IPv4/v6 address or
+        None. port is a string service name such as 'http', a numeric port number or
+        None. By passing None as the value of host and port, you can pass NULL to
+        the underlying C API.
+    
+        The family, type and proto arguments can be optionally specified in order to
+        narrow the list of addresses returned. Passing zero as a value for each of
+        these arguments selects the full range of results.
+        """
+        # We override this function since we want to translate the numeric family
+        # and socket type values to enum constants.
+        addrlist = []
+&gt;       for res in _socket.getaddrinfo(host, port, family, type, proto, flags):
+E       socket.gaierror: [Errno 11001] getaddrinfo failed
+
+c:\users\jieliu666\appdata\local\programs\python\python38\lib\socket.py:918: gaierror
+
+During handling of the above exception, another exception occurred:
+
+self = &lt;TestCases.test_001_register.TestRegister object at 0x0000020D82DC5580&gt;
+driver = &lt;selenium.webdriver.chrome.webdriver.WebDriver (session="77f971cac27dce89f2322e730ad3596d")&gt;
+new_mobile = '18784816636'
+data = {'password': 'random_str', 'user': 'random_str'}
+
+    @pytest.mark.register
+    @pytest.mark.parametrize("data", LD.user_data)  # 参数化，把LD.user_data的测试数据交给自定义参数名为data的参数
+    def test_user_register(self, driver, new_mobile, data):
+        rp = RegisterPage(driver)
+        rp.load()
+&gt;       rp.validate_mobile(new_mobile)
+
+TestCases\test_001_register.py:39: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+PageObjects\register_page.py:33: in validate_mobile
+    db = MySQLHandler(**cf.db)
+Common\mysql_handle.py:17: in __init__
+    self.conn = pymysql.connect(host=host,
+C:\.virtualenv\web_test\lib\site-packages\pymysql\connections.py:353: in __init__
+    self.connect()
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;pymysql.connections.Connection object at 0x0000020D824A55E0&gt;
+sock = None
+
+    def connect(self, sock=None):
+        self._closed = False
+        try:
+            if sock is None:
+                if self.unix_socket:
+                    sock = socket.socket(socket.AF_UNIX, socket.SOCK_STREAM)
+                    sock.settimeout(self.connect_timeout)
+                    sock.connect(self.unix_socket)
+                    self.host_info = "Localhost via UNIX socket"
+                    self._secure = True
+                    if DEBUG:
+                        print("connected using unix_socket")
+                else:
+                    kwargs = {}
+                    if self.bind_address is not None:
+                        kwargs["source_address"] = (self.bind_address, 0)
+                    while True:
+                        try:
+                            sock = socket.create_connection(
+                                (self.host, self.port), self.connect_timeout, **kwargs
+                            )
+                            break
+                        except (OSError, IOError) as e:
+                            if e.errno == errno.EINTR:
+                                continue
+                            raise
+                    self.host_info = "socket %s:%d" % (self.host, self.port)
+                    if DEBUG:
+                        print("connected using socket")
+                    sock.setsockopt(socket.IPPROTO_TCP, socket.TCP_NODELAY, 1)
+                    sock.setsockopt(socket.SOL_SOCKET, socket.SO_KEEPALIVE, 1)
+                sock.settimeout(None)
+    
+            self._sock = sock
+            self._rfile = sock.makefile("rb")
+            self._next_seq_id = 0
+    
+            self._get_server_information()
+            self._request_authentication()
+    
+            if self.sql_mode is not None:
+                c = self.cursor()
+                c.execute("SET sql_mode=%s", (self.sql_mode,))
+    
+            if self.init_command is not None:
+                c = self.cursor()
+                c.execute(self.init_command)
+                c.close()
+                self.commit()
+    
+            if self.autocommit_mode is not None:
+                self.autocommit(self.autocommit_mode)
+        except BaseException as e:
+            self._rfile = None
+            if sock is not None:
+                try:
+                    sock.close()
+                except:  # noqa
+                    pass
+    
+            if isinstance(e, (OSError, IOError, socket.error)):
+                exc = err.OperationalError(
+                    2003, "Can't connect to MySQL server on %r (%s)" % (self.host, e)
+                )
+                # Keep original exception and traceback to investigate error.
+                exc.original_exception = e
+                exc.traceback = traceback.format_exc()
+                if DEBUG:
+                    print(exc.traceback)
+&gt;               raise exc
+E               pymysql.err.OperationalError: (2003, "Can't connect to MySQL server on 'xxx' ([Errno 11001] getaddrinfo failed)")
+
+C:\.virtualenv\web_test\lib\site-packages\pymysql\connections.py:664: OperationalError</failure></testcase><testcase classname="TestCases.test_004_login_keyword_driver.TestLoginKeyWordDriver" name="test_login_successful[1a2b-abcd-1a2b]" time="22.367" /><testcase classname="TestCases.test_004_login_keyword_driver.TestLoginKeyWordDriver" name="test_login_successful[17778063407-123456-zhangsan]" time="24.395" /><testcase classname="TestCases.test_004_login_keyword_driver.TestLoginKeyWordDriver" name="test_login_error[18593298797-abcd-\u8bf7\u8f93\u5165\u6b63\u786e\u624b\u673a\u53f7]" time="21.588" /><testcase classname="TestCases.test_004_login_keyword_driver.TestLoginKeyWordDriver" name="test_login_error[185932987977-abcd-\u8bf7\u8f93\u5165\u6b63\u786e\u624b\u673a\u53f7]" time="20.387" /><testcase classname="TestCases.test_004_login_keyword_driver.TestLoginKeyWordDriver" name="test_login_error[-abcd-\u8d26\u53f7\u4e3a4~16\u4f4d\u5b57\u6bcd\u3001\u6570\u5b57\u6216\u4e0b\u5212\u7ebf]" time="20.763" /><testcase classname="TestCases.test_004_login_keyword_driver.TestLoginKeyWordDriver" name="test_login_error[118593298797-abcd-\u8bf7\u8f93\u5165\u6b63\u786e\u624b\u673a\u53f7]" time="23.061" /><testcase classname="TestCases.test_004_login_keyword_driver.TestLoginKeyWordDriver" name="test_login_error[17788063407-abcd-\u8bf7\u8f93\u5165\u6b63\u786e\u624b\u673a\u53f7]" time="25.629" /><testcase classname="TestCases.test_004_login_keyword_driver.TestLoginKeyWordDriver" name="test_login_error[1a2-abcd-\u8d26\u53f7\u4e3a4~16\u4f4d\u5b57\u6bcd\u3001\u6570\u5b57\u6216\u4e0b\u5212\u7ebf]" time="19.463" /><testcase classname="TestCases.test_004_login_keyword_driver.TestLoginKeyWordDriver" name="test_login_error[1a2b$-abcd-\u8d26\u53f7\u4e3a4~16\u4f4d\u5b57\u6bcd\u3001\u6570\u5b57\u6216\u4e0b\u5212\u7ebf]" time="19.454" /><testcase classname="TestCases.test_004_login_keyword_driver.TestLoginKeyWordDriver" name="test_login_error[12345678912345671-abcd-\u8d26\u53f7\u4e3a4~16\u4f4d\u5b57\u6bcd\u3001\u6570\u5b57\u6216\u4e0b\u5212\u7ebf]" time="22.041" /><testcase classname="TestCases.test_004_login_keyword_driver.TestLoginKeyWordDriver" name="test_login_error[1a2b-123-\u8d26\u53f7\u6216\u5bc6\u7801\u4e0d\u6b63\u786e]" time="20.991" /><testcase classname="TestCases.test_004_login_keyword_driver.TestLoginKeyWordDriver" name="test_login_error[1a2b-123-\u8d26\u53f7\u4e3a\u7a7a]" time="22.468" /><testcase classname="TestCases.test_005_confirm_order.TestCofirmOrder" name="test_confirm_order_successful[py1660703573699-http://mall.lemonban.com:8108/2022/08/b20d9608664c46e78196ab1b31c6d5a6.png-\u8ba2\u5355\u63d0\u4ea4\u6210\u529f]" time="33.537"><failure message="selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {&quot;method&quot;:&quot;xpath&quot;,&quot;selector&quot;:&quot;//div[contains(text(),&quot;订单提交成功&quot;)]&quot;}&#10;  (Session info: chrome=106.0.5249.119)">self = &lt;TestCases.test_005_confirm_order.TestCofirmOrder object at 0x0000020D82EE1070&gt;
+login = &lt;selenium.webdriver.chrome.webdriver.WebDriver (session="7e88d86750844a48cb59a17fe8720a3b")&gt;
+goods_name = 'py1660703573699'
+img_url = 'http://mall.lemonban.com:8108/2022/08/b20d9608664c46e78196ab1b31c6d5a6.png'
+expected = '订单提交成功'
+
+    @pytest.mark.confirm_order_success
+    @pytest.mark.parametrize(['goods_name', 'img_url', 'expected'], params['test_confirm_order_successful'])
+    def test_confirm_order_successful(self, login,goods_name, img_url, expected):
+        # 测试步骤
+        driver = login
+        page = LoginPage(driver)
+        page._test_params['goods_name'] = goods_name
+        page._test_params['img_url'] = img_url
+        page._test_params['expected'] = expected
+&gt;       page.steps(order, page)
+
+TestCases\test_005_confirm_order.py:37: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+Common\base_page.py:50: in steps
+    method(**params)
+Common\base_page.py:192: in assert_text_equal
+    el = self.find_element(locator)
+Common\base_page.py:105: in find_element
+    return self.driver.find_element(*locator)
+C:\.virtualenv\web_test\lib\site-packages\selenium\webdriver\remote\webdriver.py:976: in find_element
+    return self.execute(Command.FIND_ELEMENT, {
+C:\.virtualenv\web_test\lib\site-packages\selenium\webdriver\remote\webdriver.py:321: in execute
+    self.error_handler.check_response(response)
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = &lt;selenium.webdriver.remote.errorhandler.ErrorHandler object at 0x0000020D824C6940&gt;
+response = {'status': 404, 'value': '{"value":{"error":"no such element","message":"no such element: Unable to locate element: {\...\n\\tRtlGetAppContainerNamedObjectPath [0x77AD7BBE+286]\\n\\tRtlGetAppContainerNamedObjectPath [0x77AD7B8E+238]\\n"}}'}
+
+    def check_response(self, response):
+        """
+        Checks that a JSON response from the WebDriver does not have an error.
+    
+        :Args:
+         - response - The JSON response from the WebDriver server as a dictionary
+           object.
+    
+        :Raises: If the response contains an error message.
+        """
+        status = response.get('status', None)
+        if status is None or status == ErrorCode.SUCCESS:
+            return
+        value = None
+        message = response.get("message", "")
+        screen = response.get("screen", "")
+        stacktrace = None
+        if isinstance(status, int):
+            value_json = response.get('value', None)
+            if value_json and isinstance(value_json, basestring):
+                import json
+                try:
+                    value = json.loads(value_json)
+                    if len(value.keys()) == 1:
+                        value = value['value']
+                    status = value.get('error', None)
+                    if status is None:
+                        status = value["status"]
+                        message = value["value"]
+                        if not isinstance(message, basestring):
+                            value = message
+                            message = message.get('message')
+                    else:
+                        message = value.get('message', None)
+                except ValueError:
+                    pass
+    
+        exception_class = ErrorInResponseException
+        if status in ErrorCode.NO_SUCH_ELEMENT:
+            exception_class = NoSuchElementException
+        elif status in ErrorCode.NO_SUCH_FRAME:
+            exception_class = NoSuchFrameException
+        elif status in ErrorCode.NO_SUCH_WINDOW:
+            exception_class = NoSuchWindowException
+        elif status in ErrorCode.STALE_ELEMENT_REFERENCE:
+            exception_class = StaleElementReferenceException
+        elif status in ErrorCode.ELEMENT_NOT_VISIBLE:
+            exception_class = ElementNotVisibleException
+        elif status in ErrorCode.INVALID_ELEMENT_STATE:
+            exception_class = InvalidElementStateException
+        elif status in ErrorCode.INVALID_SELECTOR \
+                or status in ErrorCode.INVALID_XPATH_SELECTOR \
+                or status in ErrorCode.INVALID_XPATH_SELECTOR_RETURN_TYPER:
+            exception_class = InvalidSelectorException
+        elif status in ErrorCode.ELEMENT_IS_NOT_SELECTABLE:
+            exception_class = ElementNotSelectableException
+        elif status in ErrorCode.ELEMENT_NOT_INTERACTABLE:
+            exception_class = ElementNotInteractableException
+        elif status in ErrorCode.INVALID_COOKIE_DOMAIN:
+            exception_class = InvalidCookieDomainException
+        elif status in ErrorCode.UNABLE_TO_SET_COOKIE:
+            exception_class = UnableToSetCookieException
+        elif status in ErrorCode.TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.SCRIPT_TIMEOUT:
+            exception_class = TimeoutException
+        elif status in ErrorCode.UNKNOWN_ERROR:
+            exception_class = WebDriverException
+        elif status in ErrorCode.UNEXPECTED_ALERT_OPEN:
+            exception_class = UnexpectedAlertPresentException
+        elif status in ErrorCode.NO_ALERT_OPEN:
+            exception_class = NoAlertPresentException
+        elif status in ErrorCode.IME_NOT_AVAILABLE:
+            exception_class = ImeNotAvailableException
+        elif status in ErrorCode.IME_ENGINE_ACTIVATION_FAILED:
+            exception_class = ImeActivationFailedException
+        elif status in ErrorCode.MOVE_TARGET_OUT_OF_BOUNDS:
+            exception_class = MoveTargetOutOfBoundsException
+        elif status in ErrorCode.JAVASCRIPT_ERROR:
+            exception_class = JavascriptException
+        elif status in ErrorCode.SESSION_NOT_CREATED:
+            exception_class = SessionNotCreatedException
+        elif status in ErrorCode.INVALID_ARGUMENT:
+            exception_class = InvalidArgumentException
+        elif status in ErrorCode.NO_SUCH_COOKIE:
+            exception_class = NoSuchCookieException
+        elif status in ErrorCode.UNABLE_TO_CAPTURE_SCREEN:
+            exception_class = ScreenshotException
+        elif status in ErrorCode.ELEMENT_CLICK_INTERCEPTED:
+            exception_class = ElementClickInterceptedException
+        elif status in ErrorCode.INSECURE_CERTIFICATE:
+            exception_class = InsecureCertificateException
+        elif status in ErrorCode.INVALID_COORDINATES:
+            exception_class = InvalidCoordinatesException
+        elif status in ErrorCode.INVALID_SESSION_ID:
+            exception_class = InvalidSessionIdException
+        elif status in ErrorCode.UNKNOWN_METHOD:
+            exception_class = UnknownMethodException
+        else:
+            exception_class = WebDriverException
+        if value == '' or value is None:
+            value = response['value']
+        if isinstance(value, basestring):
+            if exception_class == ErrorInResponseException:
+                raise exception_class(response, value)
+            raise exception_class(value)
+        if message == "" and 'message' in value:
+            message = value['message']
+    
+        screen = None
+        if 'screen' in value:
+            screen = value['screen']
+    
+        stacktrace = None
+        if 'stackTrace' in value and value['stackTrace']:
+            stacktrace = []
+            try:
+                for frame in value['stackTrace']:
+                    line = self._value_or_default(frame, 'lineNumber', '')
+                    file = self._value_or_default(frame, 'fileName', '&lt;anonymous&gt;')
+                    if line:
+                        file = "%s:%s" % (file, line)
+                    meth = self._value_or_default(frame, 'methodName', '&lt;anonymous&gt;')
+                    if 'className' in frame:
+                        meth = "%s.%s" % (frame['className'], meth)
+                    msg = "    at %s (%s)"
+                    msg = msg % (meth, file)
+                    stacktrace.append(msg)
+            except TypeError:
+                pass
+        if exception_class == ErrorInResponseException:
+            raise exception_class(response, message)
+        elif exception_class == UnexpectedAlertPresentException:
+            alert_text = None
+            if 'data' in value:
+                alert_text = value['data'].get('text')
+            elif 'alert' in value:
+                alert_text = value['alert'].get('text')
+            raise exception_class(message, screen, stacktrace, alert_text)
+&gt;       raise exception_class(message, screen, stacktrace)
+E       selenium.common.exceptions.NoSuchElementException: Message: no such element: Unable to locate element: {"method":"xpath","selector":"//div[contains(text(),"订单提交成功")]"}
+E         (Session info: chrome=106.0.5249.119)
+
+C:\.virtualenv\web_test\lib\site-packages\selenium\webdriver\remote\errorhandler.py:242: NoSuchElementException</failure></testcase><testcase classname="TestCases.test_reg_demo" name="test_demo" time="0.001"><skipped type="pytest.skip" message="unconditional skip">C:\Users\jieliu666\python3_code\sublime_text03\14SoftwareTest\python_project\webTest\python_webTest\mall_web_test\TestCases\test_reg_demo.py:12: unconditional skip</skipped></testcase></testsuite></testsuites>

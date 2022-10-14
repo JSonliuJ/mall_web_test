@@ -1,0 +1,13 @@
+2022-10-15 00:41:55,104-ERROR-my_log.py-my_logger-日志信息:['xpath', '//div[@class="error"]']实际获取的文本为 
+
+2022-10-15 00:42:16,480-ERROR-my_log.py-my_logger-日志信息:['xpath', '//div[@class="error"]']实际获取的文本为 
+
+2022-10-15 00:42:59,028-ERROR-my_log.py-my_logger-日志信息:['xpath', '//div[@class="error"]']实际获取的文本为 
+
+2022-10-15 00:43:25,920-ERROR-my_log.py-my_logger-日志信息:['xpath', '//div[@class="error"]']实际获取的文本为 
+
+2022-10-15 00:44:47,921-ERROR-my_log.py-my_logger-日志信息:['xpath', '//div[@class="error"]']实际获取的文本为 
+
+2022-10-15 00:45:10,399-ERROR-my_log.py-my_logger-日志信息:['xpath', '//div[@class="error"]']实际获取的文本为 
+
+2022-10-15 00:45:43,764-ERROR-my_log.py-my_logger-日志信息:查找元素失败
