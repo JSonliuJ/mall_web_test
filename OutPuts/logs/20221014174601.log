@@ -1,0 +1,3 @@
+2022-10-14 17:47:06,003-ERROR-my_log.py-my_logger-日志信息:['xpath', '//div[@class="error"]']实际获取的文本为
+2022-10-14 17:47:24,349-ERROR-my_log.py-my_logger-日志信息:['xpath', '//div[@class="error"]']实际获取的文本为
+2022-10-14 17:48:04,944-ERROR-my_log.py-my_logger-日志信息:['xpath', '//div[@class="error"]']实际获取的文本为
