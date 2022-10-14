@@ -4,13 +4,17 @@
 # @Author:  jsonJie
 # @Email:   810030907@qq.com
 # @File:    base_page.py
+import inspect
+import json
 import os
 import sys
+
 local_path = os.path.dirname(os.path.dirname(os.path.realpath(__file__)))
 sys.path.append(local_path)
 
 from selenium.webdriver import Chrome
 from Common.my_log import MyLog
+
 logging = MyLog()
 import time
 import datetime
@@ -20,13 +24,30 @@ from selenium.webdriver.common.keys import Keys
 from selenium.webdriver.support.wait import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 
+
 # import win32gui
 # import win32con
 # pip install pywin32
 
 class BasePage:
+    _test_params = {}
+
     def __init__(self, driver: Chrome):
         self.driver = driver
+
+    def steps(self, data, page):
+        # 操作步骤名称
+        operate_name = inspect.stack()[1].function
+        steps = data[operate_name]['steps']
+        str_instance = json.dumps(steps)
+        for key, value in self._test_params.items():
+            str_instance = str_instance.replace('${' + key + '}', value)
+        steps = json.loads(str_instance)
+        for step in steps:
+            method_name = step['action']
+            params = step['params']
+            method = getattr(page, method_name)
+            method(**params)
 
     # 1. 等待元素可见
     def wait_eleVisible(self, locator, timeout=20, poll_frequency=0.5, doc=""):
@@ -169,7 +190,10 @@ class BasePage:
 
     def assert_text_equal(self, locator, expected):
         el = self.find_element(locator)
-        assert el.text == expected
+        try:
+            assert el.text == expected
+        except:
+            logging.error("{}实际获取的文本为{} \n".format(locator,el.text))
 
     # 8. alert处理
     def switch_to_alert(self, timeout=30, poll_frequency=0.5, action='accept', doc=""):
@@ -307,9 +331,9 @@ class BasePage:
         mouse.context_click(ele).perform()
 
     # 元素鼠标操作：移动到该元素上--测试OK
-    def move_to_element_by_mouse(self, locator,doc=""):
+    def move_to_element_by_mouse(self, locator, doc=""):
         try:
-            ele = self.find_element(locator,doc)
+            ele = self.find_element(locator, doc)
             mouse = ActionChains(self.driver)
             logging.info('将鼠标移动到{}元素上'.format(locator))
             mouse.move_to_element(ele).perform()
@@ -338,10 +362,10 @@ class BasePage:
         logging.info('双击{}元素'.format(locator))
         mouse.double_click(el).perform()
 
-    def move_to(self, locator, doc="",xoffset=0, yoffset=0):
+    def move_to(self, locator, doc="", xoffset=0, yoffset=0):
         """悬停"""
         try:
-            el = self.find_element(locator,doc)
+            el = self.find_element(locator, doc)
             mouse = ActionChains(self.driver)
             logging.info('鼠标悬停到{}元素上'.format(locator))
             mouse.move_to_element_with_offset(el, xoffset=xoffset, yoffset=yoffset)
@@ -349,6 +373,7 @@ class BasePage:
             logging.error('{}鼠标悬停操作失败！'.format(doc))
             self.save_screenshot(doc)
             raise
+
     def move_by(self, xoffset, yoffset):
         """移动多少个像素点"""
         mouse = ActionChains(self.driver)
@@ -380,16 +405,16 @@ class BasePage:
         ele.send_keys(Keys.CONTROL, 'a')
 
     # 粘贴 Ctrl +x--测试OK
-    # def ctrl_x(self, locator):
-    #     ele = self.find_element(locator)
-    #     logging.info('{}元素输入框内容进行剪切操作'.format(locator))
-    #     ele.send_keys(Keys.CONTROL, 'x')
-    #
+    def ctrl_x(self, locator):
+        ele = self.find_element(locator)
+        logging.info('{}元素输入框内容进行剪切操作'.format(locator))
+        ele.send_keys(Keys.CONTROL, 'x')
+
     # # 粘贴 Ctrl +v--测试OK
-    # def ctrl_v(self, locator):
-    #     ele = self.find_element(locator)
-    #     logging.info('{}元素输入框内容进行粘贴操作'.format(locator))
-    #     ele.send_keys(Keys.CONTROL, 'v')
+    def ctrl_v(self, locator):
+        ele = self.find_element(locator)
+        logging.info('{}元素输入框内容进行粘贴操作'.format(locator))
+        ele.send_keys(Keys.CONTROL, 'v')
 
     def copy(self, content=None, all=None):
         """复制
